@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuEhhhEHHH</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+    body{
+        background-color: pink;
+    }
+    img{
+        width: 200px;
+        border-radius: 20px;
+    }
+    center{
+        margin-top: 10vh;
+    }
+    button{
+        font-size: 5vw;
+        border-radius: 10px;
+        font-weight: 700;
+    }
+    #yes{
+        background-color: rgb(255, 44, 181);
+        color: white;
+        padding: 5px 15px;
+        border: none;
+    }
+    #no{
+        background-color: rgb(255, 26, 26);
+        color: white;
+        padding: 5px 15px;
+        border: none;
+    }
+    h1{
+        font-size: 20px;
+        color: rgb(246, 0, 160);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .text{
+        color: rgb(246, 0, 160);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: 700;
+        display: none;
+    }
+    .img2{
+        display: none;
+        width: 300px;
+    }
+    canvas{
+    position: absolute;
+    display: none;
+    top: 0;
+    z-index: 10;
+}
+</style>
+
+<body>
+    <canvas id="birthdayCanvas"></canvas>
+    <center>
+        
+            <img src="giphy.gif" class="img1">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHA5bG9ybjE1Z2Z1OHZmbHg4bDVjd3E2MnZrMTVudGhodDNhdmtrbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qUPixM1zoFspkymIDr/giphy.gif" class="img2"><br>
+            <h1>Will you be my Valentine?</h1><br>
+            <button id="yes">YES</button>
+            <button id="no">NAH</button>
+            <p class="text">Hehee No Choice Now Just Click YES Babyy</p>
+    </center>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#no").click(function(){
+            $("#yes").css("font-size","30px")
+            $("#no").html("Are you sure?").addClass("sure")
+            $(".sure").click(function(){
+                $("#yes").css("font-size","50px")
+                $(".sure").html("Think again").addClass("again")
+                $(".again").click(function(){
+                    $("#yes").css("font-size","70px")
+                    $(".again").html("Pleaseee").addClass("please")
+                    $(".please").click(function(){
+                    $("#yes").css("font-size","100px")
+                    $(".please").html("<img src='https://whatemoji.org/wp-content/uploads/2020/07/Loudly-Crying-Face-Emoji.png' style='width:100px'>").addClass("last")
+                        $(".last").click(function(){
+                            $("#yes").css("font-size","120px")
+                            $(".last").hide()
+                            $(".text").show()
+                        })
+                })
+                })
+            })
+        })
+        $("#yes").click(function(){
+            $('h1').html("YAYYYYY").css("font-size","50px")
+            $('#yes').hide()
+            $('#no').hide()
+            $(".img1").hide()
+            $('.img2').show()
+            $('canvas').show()
+        })
+    });
+</script>
+<script>
+    const canvas = document.getElementById('birthdayCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.radius = Math.random() * 5 + 2;
+        this.x = Math.random() * canvas.width;
+        this.y = 0 - this.radius;
+        this.speedY = Math.random() * 3 + 1;
+        this.color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+      }
+
+      update() {
+        this.y += this.speedY;
+        if (this.y + this.radius > canvas.height) {
+          this.y = 0 - this.radius;
+          this.x = Math.random() * canvas.width;
+        }
+        this.draw();
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    const particles = [];
+
+    function createParticles() {
+      for (let i = 0; i < 30; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const particle of particles) {
+        particle.update();
+      }
+    }
+
+    createParticles();
+    animate();
+  </script>
+</html>
